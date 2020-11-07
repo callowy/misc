@@ -100,7 +100,7 @@ Important note: N(T) is a subspace of \textbf{V} while R(T) is a subspace of \te
 
 \phantom{}
 
-\textbf{Example:} Find N(T) and R(T) for a linear transformation T: R\textsuperscript{3} $\rightarrow$ R\textsuperscript{2} defined by
+\textbf{Problem:} Find N(T) and R(T) for a linear transformation T: R\textsuperscript{3} $\rightarrow$ R\textsuperscript{2} defined by
 \[T(a_{1}, a_{2}, a_{3}) = (a_{1} - a_{2}, 2 a_3) \]
 \end{frame}
 
@@ -137,7 +137,7 @@ Proof:
 	\item Suppose dim(V) = n, dim(N(T)) = k, define a basis for N(T) as $\{v_{1}, ..., v_{k}\}$
 	\item Extend to a basis for V, so $\beta = \{v_{1}, ..., v_{k}, v_{k+1}, ..., v_{n} \}$ 
 	\item Claim $S = \{T(v_{k+1}),  T(v_{k+2}), ..., T(v_{n})\}$ is a basis for R(T)
-	\item $T(v_{i}) = 0$ for $1 \leq i \leq k$ since $v_{i}$ comes from the null space of V, thus
+	\item $T(v_{i}) = 0$ for $1 \leq i \leq k$ since $v_{i}$ comes from the null space of T, thus
 		\begin{align*}
 			R(T) &= \text{span}(T(\beta)) = \text{span}(\{T(v_{1}), ..., T(v_{n})\}) \\
 			&= \text{span}( \{ 0, ..., T(v_{k+1}), T(v_{k+2}), ..., T(v_{n}) \} ) \\
