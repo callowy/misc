@@ -1,0 +1,416 @@
+\documentclass[11pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usetheme{default}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usetheme{Madrid}
+\usecolortheme{seahorse}
+
+\newcommand*\colvec[3][]{
+	\begin{pmatrix}\ifx\relax#1\relax\else#1\\\fi#2\\#3\end{pmatrix}
+}
+
+\begin{document}
+	\author{Colin Moore}
+	\title{Linear Algebra Review 2}
+	\subtitle{MAT 442}
+	%\logo{}
+	%\institute{}
+	\date{Nov 2020}
+	\subject{MAT 442}
+	%\setbeamercovered{transparent}
+	%\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+		\maketitle
+	\end{frame}
+
+\begin{frame}
+	\frametitle{Warm Up}
+	%\framesubtitle{subtitle}
+	Given that the matrix
+	\[ A = 
+		\begin{pmatrix}
+			2 & 4 & 6 & 2 & 4 \\
+			1 & 2 & 3 & 1 & 1 \\
+			2 & 4 & 8 & 0 & 0 \\
+			3 & 6 & 7 & 5 & 9
+		\end{pmatrix}
+	\]
+	can be row reduced to
+	\[ \text{rref(A)} = 
+		\begin{pmatrix}
+			1 & 2 & 0 & 4 & 0 \\
+			0 & 0 & 1 & -1 & 0 \\
+			0 & 0 & 0 & 0 & 1 \\
+			0 & 0 & 0 & 0 & 0
+		\end{pmatrix}
+	\]
+	give a basis for the column space of A.
+	
+	What is the rank of the row space of A?
+\end{frame}
+
+\begin{frame}
+	\frametitle{Elementary Matrix Operations}
+	\begin{block}{Thereom}
+		Let A be an $m \; x \; n$ matrix. Any of the following operations on the rows [columns] of A is called an \textbf{elementary row [column] operation }
+		\begin{enumerate}
+			\setbeamertemplate{enumerate items}[default]
+			\item interchanging any two rows [columns] of A (type 1)
+			\item multiplying any row [column] of A by a nonzero scalar (type 2)
+			\item adding any scalar multiple of a row [column] of A to another row [column] (type 3)
+		\end{enumerate}
+	\end{block}
+
+	Note that if a matrix Q can be obtained from a matrix P by means of elementary row operations, then P can be obtained from Q by elementary row operations of the same type.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Elementary Matrix Operations}
+	\begin{block}{Definition}
+		An $n \; x \; n$ \textbf{elementary matrix} is a matrix obtained by performing a single  elementary operation on the identity matrix, $I_{n}$. The elementary matrix is said to be of \textbf{type 1, 2, or 3} depending upon which elementary operation was performed.
+	\end{block}
+	\phantom{text}
+	
+	\textbf{Theorem 3.1.} Let A be an $m \; x \; n$ matrix and suppose that B is obtained from A by performing an elementary row [column] operation. Then there exists an $m \; x \; m$ ($n \; x \; n$) elementary matrix E such that B = EA [B = AE]. In fact, E is obtained from $I_{m}$ [$I_{n}$] by performing the same elementary row [column] operation that was performed on A to obtain B.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example}
+	Let
+	\[ A = 
+		\begin{pmatrix}
+			5 & 1 & 2 & 3 & 4 & 0 \\
+			1 & 0 & 4 & 3 & 3 & 2 \\
+			2 & 6 & 0 & 0 & 2 & 1
+		\end{pmatrix}
+	\]
+	By performing a type 3 operation on A (multiplying row 3 by 2 and adding to row 1) we obtain the matrix
+	\[ B = 
+		\begin{pmatrix}
+			9 & 13 & 2 & 3 & 8 & 2 \\
+			1 & 0 & 4 & 3 & 3 & 2 \\
+			2 & 6 & 0 & 0 & 2 & 1
+		\end{pmatrix}
+	\]
+	Then by Theorem 3.1, B = EA, where E is obtained by applying the same type 3 operation to $I_{3}$
+	\[ B = 
+	\begin{pmatrix}
+		1 & 0 & 2 \\
+		0 & 1 & 0 \\
+		0 & 0 & 1
+	\end{pmatrix}
+	\begin{pmatrix}
+		5 & 1 & 2 & 3 & 4 & 0 \\
+		1 & 0 & 4 & 3 & 3 & 2 \\
+		2 & 6 & 0 & 0 & 2 & 1
+	\end{pmatrix}
+	\]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Elementary Matrix Operations}
+	\begin{block}{Theorem}
+		Elementary matrices are invertible, and the inverse of an elementary matrix is an elementary matrix of the same type.
+	\end{block}
+
+	\phantom{text}
+	
+	Note that elementary row and column operations on a matrix are \textbf{rank preserving}.
+
+	\phantom{text}
+	
+	\textbf{Thereom:} Let A be an $m \; x \; n$ matrix. If P and Q are invertible $m \; x \; m$ and $n \; x \; n$ matrices, respectively, then
+		\begin{itemize}
+			\item rank(AQ) = rank(A)
+			\item rank(PA) = rank(A)
+			\item rank(PAQ) = rank(A)
+		\end{itemize}
+	
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Elementary Matrix Operations}
+	If A is invertible, than A is a product of elementary matrices.
+	
+	\phantom{text}
+	
+	\textbf{\textcolor{blue}{Proof}:} Suppose A is invertible. Then we can obtain the identity matrix from I using a finite sequence of elementary row operations.
+	
+	In terms of elementary matrices, this looks like
+	
+	\[ E_{n}E_{n-1}...E_{2}E_{1}A = I \]
+	
+	elementary matrices are invertible, so 
+	
+	\[ A = E_{1}^{-1}E_{2}^{-1}...E_{n-1}^{-1}E_{n}^{-1}I \]
+	
+	Thus A is a product of elementary matrices.
+	
+	(pay attention to the order of the elementary matrices compared to their inverses)
+\end{frame}
+
+\begin{frame}
+	\frametitle{Rank of a Matrix Properties}
+		Recall that for an $m \; x \; n$ matrix A, we define $L_{A}$ to be the mapping $L_{A}: F^{n} \rightarrow F^{m}$ defined by $L_{A}(x) = Ax$. We call $L_{A}$ a \textbf{left multiplication transformation}.
+	
+	\phantom{text}
+	
+	We define the rank of a matrix A to be the rank of the linear transformation $L_{A}$
+	
+	\phantom{text}
+	
+	The rank of any matrix equals the maximum number of its linearly independent columns.
+		
+	\phantom{text}
+	
+	The rows and columns of any matrix generate subspaces of the same dimensiom
+	
+	\phantom{text}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Determinants}
+	Some basic properties of determinants:
+	\begin{itemize}
+		\item If A has a row consisting of only zeroes, then det(A) = 0
+		\item If A has two identical rows, then det(A) = 0
+		\item if A\textsubscript{nxn} has rank less than n, then det(A) = 0
+	\end{itemize}
+	
+	\begin{block}{Theorem}
+		Let E be an elementary matrix. Then
+		\begin{itemize}
+			\item If E is type 1, then det(E) = -1
+			\item If E is type 2, then det(E) = $\alpha$
+			\item If E is type 3, then det(E) = 1
+		\end{itemize}
+	\end{block}
+
+	\phantom{text}
+
+	\textbf{Theorem:} Let A,B be nxn matrices. Then det(AB) = det(A)$\cdot$det(B)
+
+	\phantom{text}
+
+	\textbf{Corollary:} A matrix A is invertible if and only if det(A) != 0
+\end{frame}
+
+\begin{frame}
+	\frametitle{Determinants}	
+	\textbf{Theorem:} For any nxn matrix A, det(A\textsuperscript{t}) = det(A)
+
+	\phantom{text}
+	
+	\textbf{\textcolor{blue}{Proof}:}
+	
+	If A is not invertible, then neither is $A^{t}$, thus det(A) = 0 = det($A^{t}$)
+	
+	If A is invertible, then A is the product of a finite number of elementary matrices. So
+	\[
+		A^{t} = (E_{k}...E_{2}E_{1})^{t} 
+		= E_{k}^{t}...E_{2}^{t}E_{1}^{t}
+	\]
+
+	By the previous theorem, the determinant of A\textsuperscript{t} is equal to the product of determinants of elementary matrices. From here it is sufficient to show that if E is an elementary matrix, then det(E) = det(E\textsuperscript{t})
+	
+	\phantom{text}
+	
+	\textbf{Type 1:} E is obtained from I by swapping two rows, i and j. E\textsuperscript{t} is obtained by swapping two columns, j and i. So $det(E^{t}) = -1 = det(E)$
+	
+	\textbf{Type 2:} If E is type 2, then $E^{t} = E$
+	
+	\textbf{Type 3:} If E is type 3, then so is E\textsuperscript{t}. Hence $ det(E) = 1 = det(E^{t}) $
+\end{frame}
+
+\begin{frame}
+	\frametitle{Diagonalization}
+	\begin{itemize}
+		\item \textbf{eigenvector}: v is an eigenvector of A if there exists a scalar $\lambda$ such that Av = $\lambda$v
+		\item \textbf{eigenvalue:} The scalar $\lambda$ is called the eigenvalue of A corresponding to the eigenvector v
+	\end{itemize}
+	\begin{block}{Theorem}
+		A linear operator T on a vector space V is diagonalizable if and only if there exists an ordered basis $\beta$ for V consisting of eigenvectors of T. Further, $D = \left[T\right]_{\beta}$ is a diagonal matrix, and the diagonals are the eigenvalues of T.
+	\end{block}
+
+	A diagonal matrix has the form
+	\[ 
+		\begin{pmatrix}
+			\lambda_{1} & 	0 			& \ldots   & 	0 \\
+			0		    & \lambda_{2}   & \ldots  & 0 \\
+			\vdots	    & \vdots 		& 		& \vdots \\
+			0		    & 0			    & \ldots  & \lambda_{n}
+		\end{pmatrix}
+	\]
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Characteristic Polynomial}
+	\begin{block}{Definition}
+		The \textbf{characteristic polynomial} of a matrix A $\in M_{nxn}$ is defined as  
+		\[f(t) =det(A-tI\textsubscript{n}) \]
+	\end{block}
+
+	The eigenvalues of a matrix A are the roots of its characteristic polynomial. That is, $\lambda$ is an eigenvalue of A if and only if $ det(A-\lambda I_{n}) $ = 0.
+
+	\textbf{Example}: Given the following matrix
+	\[ B = 
+		\begin{pmatrix}
+			1 & 2 & 5 \\
+			0 & 6 & 4 \\
+			0 & 0 & 1
+		\end{pmatrix}
+	\]
+	we can find the eigenvalues by computing the roots of its characteristic polynomial
+	\[
+		det(B-\lambda I) = 
+			\begin{pmatrix}
+				1 - \lambda & 2 & 5 \\
+				0 & 6 - \lambda & 4 & \\
+				0 & 0 & 1 - \lambda
+			\end{pmatrix} 
+		= (1-\lambda)(6-\lambda)(1-\lambda) 
+	\]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Characteristic Polynomials and Eigenvalues}
+	\textbf{Exercise: } Find the eigenvalues of T and an ordered basis $\beta$ for V such that $\left[T\right]_{\beta}$ is a diagonal matrix.
+	
+	\phantom{}
+	
+	\begin{itemize}
+		\item V = $P_{1}(R)$ and T($ax+b$) = $(-6a+2b)x$ + $(-6a+b)$
+		\item V = $M_{2x2}(R)$ and T$\begin{pmatrix}
+										a & b \\
+										c & d
+									\end{pmatrix}$
+			= $\begin{pmatrix}
+				d & b \\
+				c & a
+				\end{pmatrix}$
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Diagonalizability}
+	\begin{block}{Defintion}
+		A polynomial f(t) \textbf{splits over} F if there are scalars (not necessarily unique) such that
+		\[ f(t) = c(t-a_{1})(t-a_{2})\ldots(t-a_{n})\]
+	\end{block}
+	A polynomial splits if it factors completely into linear polynomials. Note that $x^{2}+1$ does not split over $ \mathbb{R} $, but it does split over $ \mathbb{C} $
+	
+	\textbf{Theorem: } The characteristic polynomial of any diagonalizable linear operator splits.
+	
+	
+
+\end{frame}
+
+\begin{frame}
+	\textbf{Definition:} The eigenspace of T corresponding to the eigenvalue $\lambda$ is defined as E\textsubscript{$\lambda$} = $\left\lbrace  v \in V : T(v) = \lambda v \right\rbrace $ = N(T-$\lambda$I)
+	
+	\phantom{text}
+	T is diagonalizable if and only if the multiplicity of $\lambda_{i}$ equals the dimension of its eigenspace for all i
+	
+	\phantom{text}
+	
+	To check if a linear operator T on an n-dimensional vector space is diagonalizable the following two properties must hold
+	\begin{itemize}
+		\item The characteristic polynomial of T splits
+		\item For each eigenvalue $\lambda$ of T, the multiplicity of $\lambda$ equals n - rank(T-$\lambda$I)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Invariant Subspaces}
+	\begin{block}{Definition}
+		Let T be a linear operator on a vector space V. A subspace W of V is called a \textbf{T-invariant subspace} if $T(v) \in W$ for all $v \in W$
+	\end{block}
+
+		
+	\phantom{text}
+
+	Let T be a linear operator on a vector space V, and let x be a nonzero vector in V. The subspace
+	\[W = \text{span}(\{ x, T(x), T(x)^{2},... \} ) \]
+	is called the \textbf{T-cyclic subspace of V generated by x}. This subspace is the smallest 	possible T-invariant subspace of V containing x.
+\end{frame}
+
+\begin{frame}
+	\frametitle{T-Cyclic Subspaces}
+	\textbf{Example:} Let T be the linear operator on $R^{3}$ defined by
+	\[ T(a,b,c) = (a^{2}, b-a, c+b)	\]
+	
+	Take the vector $v_{1} = (1,1,0)$
+	\begin{align*}
+		T(v_{1}) &= T(1,1,0) = (1,0,0) \\
+		T^{2}(v_{1}) &= T(1,0,0) = (1,0,0) = T(v_{1})
+	\end{align*}
+	So the T-Cyclic Subspace of $v_{1}$ is
+	
+	 \[ span(\{ v_{1}, T(v_1)\}) = span(\{(1,1,0), (1,0,0)\}) \]
+\end{frame}
+
+\begin{frame}
+	\frametitle{T-Cyclic Subspaces}
+	\textbf{Example: } 
+	
+	Let T be the linear operator on $P(R)$ defined by T$(f(x)) = f'(x)$
+	
+	The T-cyclic subspace generated by $x^3+2x^2+1$ is
+	\[ span(\{ x^3+2x^2+1, \; 3x^2+4x, \; 6x+4, \; 6\} )\]
+\end{frame}
+
+\begin{frame}
+	\frametitle{T-Cyclic Subspaces}
+	\begin{block}{Theorem}
+		Let T be a linear operator on a finite dimensional vector space V. Let W denote the T-cyclic subspace of V generated by a nonzero vector v $\in$ W. Let k = dim(W). Then
+		\begin{itemize}
+			\item $\{v, T(v), T^{2}(v),...,T^{k-1}(v) \}$ is a basis for W
+			\item if $\alpha_{1}$v + $\alpha_{2}$T(v) + ... + $\alpha_{k-1}T^{k-1}$(v) + $T^{k}$(v) = 0, then the characteristic polynomial of $T_{W}$ is $f(t) = (-1)^{k}(\alpha_{1} + \alpha_2t + ... + \alpha_{k-1}t^{k-1} + t^{k})$
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{T-Cyclic Subspaces}
+	\textbf{Example: } Let T be the linear operator on R\textsuperscript{3} defined by 
+	\[ T(a,b,c) = (-b+c, a+c, 3c)\]
+	Let $v = (1,0,0)$. Then the T-cyclic subspace generated by v is
+	\[W = span(\{(1,0,0),(0,1,0)\}) = \{(s,t,0):s,t \in R \}\]
+	To calculate the characteristic polynomial, see that
+	\[T^{2}(v) = T(T(1,0,0)) = T(0,1,0) = (-1,0,0) = -v \]
+	\[T^{2}(v) = -v \Longrightarrow v + 0T(v) + T^{2}(v) = 0 \]
+	By the previous theorem, the characteristic polynomial of the T-cyclic subspace generated by v is
+	\[ f(t) = (-1)^{2}(1 + 0t + t^2) = t^2 + 1 \]
+\end{frame}
+
+\begin{frame}
+	\frametitle{T-Invariant and T-Cyclic Subspaces}
+	\textbf{Exercise: }
+	
+	Determine whether the given subspace W is a T-invariant subspace of V.
+	\begin{itemize}
+		\item V = $P_{3}(R)$, T($f(x)$) = $f'(x)$ and W = $P_{2}(R)$
+		\item V = $P_{3}(R)$, T($f(x)$) = $xf(x)$ and W = $P_{2}(R)$
+	\end{itemize}
+
+	\phantom{text}
+	
+	Find an ordered basis for the T-cyclic subspace generated by the vector $z$.
+	\begin{itemize}
+		\item V = $P_{3}(R)$, T$(f(x))$) = $f''(x)$, and $z=x^{3}$
+		\item V = $M_{2x2}(R)$, T$(A) = A^{t}$, and $z = 
+		\begin{pmatrix}
+			0 & 1 \\
+			1 & 0
+		\end{pmatrix}$
+	\end{itemize}
+\end{frame}
+
+\end{document}
